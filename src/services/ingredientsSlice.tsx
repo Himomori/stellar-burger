@@ -1,13 +1,6 @@
 import { getIngredientsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TIngredient } from '@utils-types';
-
-export enum RequestStatus {
-  Idle = 'Idle',
-  Loading = 'Loading',
-  Success = 'Success',
-  Failed = 'Failed'
-}
+import { RequestStatus, TIngredient } from '@utils-types';
 
 type TIngredientState = {
   data: TIngredient[];
