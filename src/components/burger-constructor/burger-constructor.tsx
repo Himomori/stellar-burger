@@ -3,9 +3,22 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector } from '../../services/store';
 import { RootState } from '../../services/store';
+import { useNavigate } from 'react-router-dom';
+
+import { useDispatch } from '../../services/store';
+import {
+  BurgerConstructorActions,
+  orderBurger
+} from '../../services/burgerConstructorSlice';
 import { RequestStatus } from '@utils-types';
+import { userSelectors } from '../../services/userSlice';
 
 export const BurgerConstructor: FC = () => {
+  // взяла переменную из стора
+  const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(userSelectors.getUser);
+
   const constructorItems = useSelector(
     (state: RootState) => state.burgerConstructor
   );
@@ -20,9 +33,22 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    if (!user) {
+      navigation('/login');
+    } else {
+      const ingredientOrder = [
+        ...constructorItems.ingredients.map((ingredient) => ingredient._id),
+
+        constructorItems.bun._id
+      ];
+      dispatch(orderBurger(ingredientOrder));
+    }
   };
 
-  const closeOrderModal = () => {};
+  const closeOrderModal = () => {
+    dispatch(BurgerConstructorActions.resetBurgerConstructor());
+  };
 
   const price = useMemo(
     () =>
