@@ -69,14 +69,6 @@ const App = () => {
           }
         />
         <Route
-          path='/register'
-          element={
-            <ProtectedRoute onlyUnAuth>
-              <Register />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path='/forgot-password'
           element={
             <ProtectedRoute onlyUnAuth>
@@ -133,12 +125,14 @@ const App = () => {
         <Route
           path='/profile/orders/:number'
           element={
-            <Modal
-              title={`#${useMatch('/profile/orders/:number')?.params.number}`}
-              onClose={handleProfileOrdersModalClose}
-            >
-              <OrderInfo />
-            </Modal>
+            <ProtectedRoute>
+              <Modal
+                title={`#${useMatch('/profile/orders/:number')?.params.number}`}
+                onClose={handleProfileOrdersModalClose}
+              >
+                <OrderInfo />
+              </Modal>
+            </ProtectedRoute>
           }
         />
         <Route path='*' element={<NotFound404 />} />

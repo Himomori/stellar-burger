@@ -37,11 +37,12 @@ export const BurgerConstructor: FC = () => {
     if (!user) {
       navigation('/login');
     } else {
-      const ingredientOrder = [
-        ...constructorItems.ingredients.map((ingredient) => ingredient._id),
+      const bunId = constructorItems.bun._id;
+      const ingredientIds = constructorItems.ingredients.map(
+        (ingredient) => ingredient._id
+      );
 
-        constructorItems.bun._id
-      ];
+      const ingredientOrder = [bunId, ...ingredientIds, bunId];
       dispatch(orderBurger(ingredientOrder));
     }
   };
