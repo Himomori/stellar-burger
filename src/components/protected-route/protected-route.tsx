@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 import { userActions, userSelectors } from '../../services/userSlice';
+import { useEffect } from 'react';
 
 type ProtectedRouteProps = {
   onlyUnAuth?: boolean;
@@ -19,8 +20,14 @@ export const ProtectedRoute = ({
   const { authCheck } = userActions;
   const isAuthChecked = useSelector(getIsAuthChecked);
 
+  // authCheck вызывается только после успешного получения информации о пользователе
+  useEffect(() => {
+    if (user) {
+      dispatch(authCheck());
+    }
+  }, [user, dispatch, authCheck]);
+
   if (!isAuthChecked) {
-    dispatch(authCheck());
     return <Preloader />;
   }
 
