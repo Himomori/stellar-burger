@@ -16,6 +16,13 @@ export type TConstructorIngredient = TIngredient & {
   id: string;
 };
 
+export enum RequestStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed'
+}
+
 export type TOrder = {
   _id: string;
   status: string;
