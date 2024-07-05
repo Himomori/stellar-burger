@@ -20,14 +20,8 @@ export const ProtectedRoute = ({
   const { authCheck } = userActions;
   const isAuthChecked = useSelector(getIsAuthChecked);
 
-  // authCheck вызывается только после успешного получения информации о пользователе
-  useEffect(() => {
-    if (user) {
-      dispatch(authCheck());
-    }
-  }, [user, dispatch, authCheck]);
-
   if (!isAuthChecked) {
+    dispatch(authCheck());
     return <Preloader />;
   }
 
