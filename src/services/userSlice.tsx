@@ -10,7 +10,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 
-type TUserState = {
+export type TUserState = {
   data: TUser | null;
   isAuthChecked: boolean;
   requestStatus: RequestStatus;
@@ -99,17 +99,49 @@ export const userSlice = createSlice({
       state.data = action.payload;
       state.requestStatus = RequestStatus.Success;
     });
+    builder.addCase(registerUser.pending, (state) => {
+      state.requestStatus = RequestStatus.Loading;
+    });
+    builder.addCase(registerUser.rejected, (state) => {
+      state.requestStatus = RequestStatus.Failed;
+    });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.data = action.payload;
       state.requestStatus = RequestStatus.Success;
+    });
+    builder.addCase(loginUser.pending, (state) => {
+      state.requestStatus = RequestStatus.Loading;
+    });
+    builder.addCase(loginUser.rejected, (state) => {
+      state.requestStatus = RequestStatus.Failed;
     });
     builder.addCase(checkUserAuth.fulfilled, (state, action) => {
       state.data = action.payload;
       state.requestStatus = RequestStatus.Success;
     });
+    builder.addCase(checkUserAuth.pending, (state) => {
+      state.requestStatus = RequestStatus.Loading;
+    });
+    builder.addCase(checkUserAuth.rejected, (state) => {
+      state.requestStatus = RequestStatus.Failed;
+    });
     builder.addCase(logoutUser.fulfilled, (state) => {
-      state.data = null;
       state.requestStatus = RequestStatus.Success;
+    });
+    builder.addCase(logoutUser.pending, (state) => {
+      state.requestStatus = RequestStatus.Loading;
+    });
+    builder.addCase(logoutUser.rejected, (state) => {
+      state.requestStatus = RequestStatus.Failed;
+    });
+    builder.addCase(updateUser.fulfilled, (state) => {
+      state.requestStatus = RequestStatus.Success;
+    });
+    builder.addCase(updateUser.pending, (state) => {
+      state.requestStatus = RequestStatus.Loading;
+    });
+    builder.addCase(updateUser.rejected, (state) => {
+      state.requestStatus = RequestStatus.Failed;
     });
   },
   selectors: {

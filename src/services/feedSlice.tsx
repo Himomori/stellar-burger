@@ -3,14 +3,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi } from '@api';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface TFeedState {
+export interface TFeedState {
   orders: TOrder[];
   total: number;
   totalToday: number;
   status: RequestStatus;
 }
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,

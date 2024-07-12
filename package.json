@@ -93,12 +93,35 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier ./src --write",
-    "test": "jest —verbose",
+    "test": "jest",
     "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@pages": "<rootDir>/src/pages",
+      "^@components": "<rootDir>/src/components",
+      "^@ui": "<rootDir>/src/components/ui",
+      "^@ui-pages": "<rootDir>/src/components/ui/pages",
+      "^@utils-types": "<rootDir>/src/utils/types",
+      "^@api": "<rootDir>/src/utils/burger-api.ts",
+      "^@slices": "<rootDir>/src/services/slices"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/services/store.ts",
+      "./src/services/feedSlice.tsx",
+      "./src/services/burgerConstructorSlice.tsx",
+      "./src/services/ingredientsSlice.tsx",
+      "./src/services/orderSlice.tsx",
+      "./src/services/ordersSlice.tsx",
+      "./src/services/userSlice.tsx"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov"]
   }
 }
