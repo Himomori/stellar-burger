@@ -22,4 +22,8 @@ describe('test rootReducer', () => {
         const state = store.getState()
         expect(state).toEqual(initialRootState);
     });
+    test('возвращает корректное начальное состояние при неизвестном действии', () => {
+        const state = rootReducer(undefined, { type: 'UNKNOWN_ACTION' });
+        expect(state).toEqual(initialRootState);
+    });
 });
